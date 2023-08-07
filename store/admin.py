@@ -1,3 +1,11 @@
 from django.contrib import admin
+from store.models import *
 
-# Register your models here.
+
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'price', 'quantity')
+
+admin.site.register(Category)
+admin.site.register(Product)
+admin.site.register(Cart)
+admin.site.register(CartItem)
