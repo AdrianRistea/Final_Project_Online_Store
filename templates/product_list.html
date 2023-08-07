@@ -47,39 +47,44 @@
                                         <h5 class="card-title">{{ products.name }}</h5>
                                         <h5 class="card-title">{{ products.price }} Lei</h5>
                                         <h6 class="card-title">{{ products.quantity }} produse disponibile</h6>
+<div id='content'>
+                                        <form action="{% url 'add_product_to_cart' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{ products.id }}">
+                                            <button type="submit" class="btn btn-outline-primary">
+                                                <a href="{% url 'add_product_to_cart' %}" class="btn btn-primary">
+                                                    <img class="logo" src="{% static 'icon/cart.svg' %}"
+                                                         alt="NTU Badge" width="20" height="20"/></a>
+                                            </button>
+                                        </form>
+                                        <form>
+                                            <button>
+                                                <a href="#" class="btn btn-primary">
+                                                    <img class="logo" src="{% static 'icon/favorite.svg' %}"
+                                                         alt="NTU Badge"
+                                                         width="20" height="20"/></a>
+                                                </a>
+                                            </button>
+                                        </form>
+                                        <form>
+                                            <button>
+                                                <a href="{% url 'product-detail' products.id %}"
+                                                   class="btn btn-primary">
+                                                    <img class="logo" src="{% static 'icon/view.svg' %}"
+                                                         alt="NTU Badge" width="20" height="20"/></a>
+                                            </button>
+                                        </form>
+                                        <form>
+                                            <button>
+                                                <a href="{% url 'modify-product' products.id %}"
+                                                   class="btn btn-primary">
+                                                    <img class="logo" src="{% static 'icon/edit.svg' %} "
+                                                         alt="NTU Badge" width="20" height="20"/></a>
+                                                </a>
+                                            </button>
+                                        </form>
 
-                                            <form action="{% url 'add_product_to_cart' %}" method="post">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="product_id" value="{{ products.id }}">
-                                                <button type="submit" class="btn btn-outline-primary">
-                                                    <a href="{% url 'add_product_to_cart' %}" class="btn btn-primary">
-                                                        <img class="logo" src="{% static 'icon/cart.svg' %}"
-                                                             alt="NTU Badge" width="15" height="15"/></a>
-                                                </button>
-                                                <button>
-                                                    <a href="#" class="btn btn-primary">
-                                                        <img class="logo" src="{% static 'icon/favorite.svg' %}"
-                                                             alt="NTU Badge"
-                                                             width="15" height="15"/></a>
-                                                    </a>
-                                                </button>
-                                                <button>
-                                                    <a href="{% url 'product-detail' products.id %}"
-                                                       class="btn btn-primary">
-                                                        <img class="logo" src="{% static 'icon/view.svg' %}"
-                                                             alt="NTU Badge" width="15" height="15"/></a>
-                                                </button>
-                                                <button>
-                                                    <a href="{% url 'modify-product' products.id %}"
-                                                       class="btn btn-primary">
-                                                        <img class="logo" src="{% static 'icon/edit.svg' %} "
-                                                             alt="NTU Badge" width="15" height="15"/></a>
-                                                    </a>
-                                                </button>
-                                            </form>
-
-
-
+</div>
                                     </div>
                                 </div>
 
