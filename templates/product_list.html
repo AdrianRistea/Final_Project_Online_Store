@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap %}
+
+{% block title %} List of products {% endblock %}
+
+{% block content %}
+
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Filters</h3>
+                    </div>
+                    <form method="get">
+                        <div class="card-body">
+                            {{ form_filters.as_p }}
+                        </div>
+                        <div class="card-footer text-center">
+                            <button type="submit" class="btn btn-outline-success">Filters</button>
+                            <a href="{% url 'product_list' %}" class="btn btn-outline-secondary">Reset</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    {% if products %}
+                        {% for products in products %}
+                            <div class="d-flex col-md-4 mb-4">
+                                <div class="card" style="width: 20rem;">
+                                    {% if products.image %}
+                                        <img src="{{ products.image.url }}" width="100%" height="auto"
+                                             class="card-img-top"
+                                             alt="{{ products.name }}">
+                                    {% else %}
+                                        <img class='card-img-top' src="{% static 'product_images/no_image.jpeg' %}"
+                                             alt='Image Not Available'
+                                             style='width: 200px;'>
+
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ products.name }}</h5>
+                                        <h5 class="card-title">{{ products.price }} Lei</h5>
+                                        <h6 class="card-title">{{ products.quantity }} produse disponibile</h6>
+
+                                            <form action="{% url 'add_product_to_cart' %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="product_id" value="{{ products.id }}">
+                                                <button type="submit" class="btn btn-outline-primary">
+                                                    <a href="{% url 'add_product_to_cart' %}" class="btn btn-primary">
+                                                        <img class="logo" src="{% static 'icon/cart.svg' %}"
+                                                             alt="NTU Badge" width="15" height="15"/></a>
+                                                </button>
+                                                <button>
+                                                    <a href="#" class="btn btn-primary">
+                                                        <img class="logo" src="{% static 'icon/favorite.svg' %}"
+                                                             alt="NTU Badge"
+                                                             width="15" height="15"/></a>
+                                                    </a>
+                                                </button>
+                                                <button>
+                                                    <a href="{% url 'product-detail' products.id %}"
+                                                       class="btn btn-primary">
+                                                        <img class="logo" src="{% static 'icon/view.svg' %}"
+                                                             alt="NTU Badge" width="15" height="15"/></a>
+                                                </button>
+                                                <button>
+                                                    <a href="{% url 'modify-product' products.id %}"
+                                                       class="btn btn-primary">
+                                                        <img class="logo" src="{% static 'icon/edit.svg' %} "
+                                                             alt="NTU Badge" width="15" height="15"/></a>
+                                                    </a>
+                                                </button>
+                                            </form>
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                        </div>
+                    {% else %}
+                        <h3 class="text-center">No result! Please try again!</h3>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

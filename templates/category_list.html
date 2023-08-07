@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {{ category.name }} {% endblock %}
+
+{% block content %}
+
+    <div class=" mb-3 container-fluid">
+        <div class="mb-3 text-primary text-center">
+            <img src="{% static 'bicycle_images/SC_logo.png' %}" width="30%" alt="SANTA CRUZ">
+        </div>
+        <div class="p-3 mb-2 bg-warning-subtle text-emphasis-warning">Aici vor fi filtrele( Price, newest, sort)</div>
+        <div class="row">
+
+            {% for bicycle in products %}
+                <div class="col-md-3 mb-3">
+                    <div class="card border-info mb-3 h-100">
+{#                        {% if bicycle.image %}#}
+{#                            <img src="{{ bicycle.image.url }}" class="card-img-top my-4" alt="{{ bicycle.name }}">#}
+{#                        {% endif %}#}
+{#                        <div class="card-body ">#}
+{#                            <h5 class="card-title">{{ bicycle.name }}</h5>#}
+{#                            <p class="card-text">{{ bicycle.description }}</p>#}
+{#                            {% if bicycle.special_price %}#}
+{#                                <p class="card-text text-decoration-line-through">Price: ${{ bicycle.price }}</p>#}
+                                {# cod pentru pret special #}
+{#                                {% if bicycle.special_price %}#}
+{#                                    <p><strong>Special Price:</strong> ${{ bicycle.special_price }}</p>#}
+{#                                    {% if bicycle.special_price_valid_until %}#}
+{#                                        <p><strong>Special Price Valid#}
+{#                                            Until:</strong> {{ bicycle.special_price_valid_until }}</p>#}
+{#                                    {% endif %}#}
+{#                                {% endif %}#}
+{#                            {% else %}#}
+{#                                <p class="card-text">Price: ${{ bicycle.price }}</p>#}
+{#                            {% endif %}#}
+                            <p class="card-text">Stock: {% if bicycle.stock %}In stoc{% else %}Out of
+                                stock
+                            {% endif %}</p>
+                            <a href="#" class="btn btn-outline-primary"><strong>Add to basket</strong></a>
+                            <a href="#" class="btn btn-outline-secondary"><strong>Details</strong></a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
