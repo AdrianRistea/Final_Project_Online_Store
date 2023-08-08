@@ -71,10 +71,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'store.context_procesors.navbar_data',
-                # 'store.context_procesors.navbar_data2',
-                # 'store.context_procesors.navbar_data3',
-
-                # 'store.context_procesors.messages',
             ],
         },
     },

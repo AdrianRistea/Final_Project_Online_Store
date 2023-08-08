@@ -1,16 +1,14 @@
 from django.contrib.auth.decorators import login_required
 
-from .filters import ProductFilters, CategoryFilters
+from .filters import ProductFilters
 from .models import Product, Category, Cart, CartItem
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy, reverse
 from store.forms import UserForm, ContactForm, ProductForm, ProductUpdateForm
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
-import stripe
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 class ProductCreateView(CreateView):
@@ -44,11 +42,6 @@ class ProductListView(ListView):
         context['form_filters'] = my_filters.form
 
         return context
-
-
-# def product_list(request):
-#     products = Product.objects.all()
-#     return render(request, 'product_list.html', {'products': products})
 
 
 def contact(request):
@@ -99,14 +92,17 @@ class ProductUpdateView(UpdateView):
     # permission_required = 'student.change_student'
 
 
-# class ProductDetailView(DetailView):
-#     model = Product
-#     templates = 'product_detail.html'
-#
-#     context_object_name = 'product'
+def delete_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
 
-# def get(self, request, *args, **kwargs):
-#     return HttpResponse()
+    if request.method == 'POST':
+        product.delete()
+        return redirect('product_list')
+
+    return render(request, 'delete_product.html', {'product': product})
+
+def get(self, request, *args, **kwargs):
+    return HttpResponse()
 
 def product_details(request, product_id):
     product = Product.objects.get(id=product_id)
@@ -123,6 +119,17 @@ def add_product_to_cart(request):
         cart_item.quantity += quantity
         cart_item.save()
     return redirect(request.META['HTTP_REFERER'])
+
+@login_required()
+def remove_from_cart(request, id):
+    try:
+        product_id = request.session['product_id']
+        cart = Cart.objects.get(id=p)
+    except:
+        return HttpResponseRedirect(reverse('open_cart'))
+    cartitem = CartItem.objects.get(id=product_id)
+    cartitem.delete()
+    return HttpResponseRedirect(reverse('open_cart'))
 
 
 @login_required
