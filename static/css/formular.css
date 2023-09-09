@@ -1,0 +1,19 @@
+/* Stilizarea formularului */
+.form-inline {
+    display: flex; /* Afișează elementele ca flex container */
+    flex-wrap: wrap; /* Perminte elementelor să se înfășoare pe rânduri */
+}
+
+/* Stilizarea fiecărui câmp de filtrare */
+.form-group {
+    margin-right: 10px; /* Spațiu între câmpuri */
+}
+
+/* Stilizarea butoanelor */
+.btn {
+    margin-right: 10px; /* Spațiu între butoane */
+}
+
+.btn-outline-danger.ml-2 {
+    margin-left: 10px; /* Spațiu între butoane */
+}
