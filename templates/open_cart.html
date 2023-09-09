@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}Open cart{% endblock %}
-
+<script src="{% static 'js/cart.js' %}"></script>
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/cart_style.css' %}">
     <div class="container">
@@ -51,7 +51,6 @@
                                 function inmultire(a, b) {
                                     return a * b;
                                 }
-
                                 var valoare1_{{ cart_item.product.id }} = {{ cart_item.product.price }};
                                 var valoare2_{{ cart_item.product.id }} = {{ cart_item.quantity }};
                                 var rezultat_{{ cart_item.product.id }} = inmultire(valoare1_{{ cart_item.product.id }}, valoare2_{{ cart_item.product.id }});
@@ -101,39 +100,34 @@
         <br>
         <br>
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
 {% endblock %}
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const decreaseButtons = document.querySelectorAll('.btn-decrease');
-        const increaseButtons = document.querySelectorAll('.btn-increase');
-        const quantityElements = document.querySelectorAll('.quantity');
-
-        decreaseButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const productId = this.getAttribute('data-product-id');
-                const quantityElement = document.querySelector(`.quantity[data-product-id="${productId}"]`);
-                const currentQuantity = parseInt(quantityElement.textContent);
-                if (currentQuantity > 1) {
-                    const newQuantity = currentQuantity - 1;
-                    quantityElement.textContent = newQuantity;
-                }
-            });
-        });
-
-        increaseButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const productId = this.getAttribute('data-product-id');
-                const quantityElement = document.querySelector(`.quantity[data-product-id="${productId}"]`);
-                const currentQuantity = parseInt(quantityElement.textContent);
-                const newQuantity = currentQuantity + 1;
-                quantityElement.textContent = newQuantity;
-            });
-        });
-    });
-</script>
+{#<script>#}
+{#    document.addEventListener('DOMContentLoaded', function () {#}
+{#        const decreaseButtons = document.querySelectorAll('.btn-decrease');#}
+{#        const increaseButtons = document.querySelectorAll('.btn-increase');#}
+{#        const quantityElements = document.querySelectorAll('.quantity');#}
+{##}
+{#        decreaseButtons.forEach(button => {#}
+{#            button.addEventListener('click', function () {#}
+{#                const productId = this.getAttribute('data-product-id');#}
+{#                const quantityElement = document.querySelector(`.quantity[data-product-id="${productId}"]`);#}
+{#                const currentQuantity = parseInt(quantityElement.textContent);#}
+{#                if (currentQuantity > 1) {#}
+{#                    const newQuantity = currentQuantity - 1;#}
+{#                    quantityElement.textContent = newQuantity;#}
+{#                }#}
+{#            });#}
+{#        });#}
+{##}
+{#        increaseButtons.forEach(button => {#}
+{#            button.addEventListener('click', function () {#}
+{#                const productId = this.getAttribute('data-product-id');#}
+{#                const quantityElement = document.querySelector(`.quantity[data-product-id="${productId}"]`);#}
+{#                const currentQuantity = parseInt(quantityElement.textContent);#}
+{#                const newQuantity = currentQuantity + 1;#}
+{#                quantityElement.textContent = newQuantity;#}
+{#            });#}
+{#        });#}
+{#    });#}
+{#</script>#}

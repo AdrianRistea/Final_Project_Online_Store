@@ -5,8 +5,8 @@ html, body {
     font-size: 16px;
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: skyblue; /* Adăugăm fundal alb */
-    color: black; /* Setăm textul negru */
+    background-color: skyblue;
+    color: black;
 }
 
 body {
@@ -17,11 +17,10 @@ body {
     z-index: 1111;
 }
 
-/* Antet și Meniu */
 header {
     background-color: black;
     padding: 1rem 0;
-    /*box-shadow: 0 2px 4px white;*/
+
 }
 
 
@@ -64,7 +63,7 @@ nav {
     color: black;
 }
 
-/* Submeniuri */
+
 .submenu {
     position: absolute;
     background-color: skyblue;
@@ -72,7 +71,6 @@ nav {
     left: 0;
     top: 100%;
     display: none;
-    /*box-shadow: 0 2px 4px white;*/
 
     z-index: 1111;
 }
@@ -106,7 +104,6 @@ nav {
     width: auto;
     background-color: skyblue;
     display: none;
-    /*box-shadow: 0 2px 4px white;*/
     text-align: left;
     white-space: nowrap;
     padding-left: 10px;
@@ -117,7 +114,7 @@ nav {
     animation: slideleft 0.2s ease;
 }
 
-/* Animatii */
+
 @keyframes slideup {
     from {
         opacity: 0;
@@ -140,34 +137,24 @@ nav {
     }
 }
 
-/* Elemente specifice */
 .nowrap {
     white-space: nowrap;
 }
 
-/* Pentru o listă neordonată cu clasa "no-bullets" */
+
 ul.no-bullets {
     list-style: none;
     padding-left: 0;
 }
 
 ol {
-    list-style: none; /* Elimină stilurile implicite ale listei */
-    padding-left: 0; /* Elimină spațiul gol din stânga al listei */
+    list-style: none;
+    padding-left: 0;
 }
 
 ul {
-    list-style: none; /* Elimină stilurile implicite ale listei */
-    padding-left: 0; /* Elimină spațiul gol din stânga al listei */
+    list-style: none;
+    padding-left: 0;
 }
 
-/*!*body {*!*/
-/*!*    height: 100%;*!*/
-/*!*    margin: 0;*!*/
-/*!*    padding: 0;*!*/
-/*!*    font-size: 16px;*!*/
-/*!*    font-family: Arial, sans-serif;*!*/
-/*!*    line-height: 1.6;*!*/
-/*!*    background-color: skyblue; !* Adăugăm fundal alb *!*!*/
-/*!*    color: black; !* Setăm textul negru *!*!*/
-/*}*/
+
