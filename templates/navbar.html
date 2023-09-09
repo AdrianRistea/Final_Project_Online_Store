@@ -1,116 +1,126 @@
-<nav class="navbar navbar-expand-lg" style="background-color:skyblue ">
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    <title>Online Store</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" style="background-color: skyblue">
     <div class="container-fluid">
-        <a class="navbar-brand" href=" {% url 'home_page' %}">Online Store</a>
+        <a class="navbar-brand" href="{% url 'home_page' %}">Online Store</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="container-fluid">
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" role="search" method="GET" action="{% url 'search_results' %}">
+                <input class="form-control me-1" type="search" name="query" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
-        <div>
+        <div class="col-md-2">
             {% if user.is_authenticated %}
-{#                                <button class="btn" type="button" href="#">Favorite#}
-{#                                </button>#}
-                <a class="btn btn-outline-dark me-2" href="{% url 'open_cart' %}">
-                    {% if  product_count is None %}
-                        <span class="material-symbols-outlined">Cosul meu</span> </a>
+                <a class="btn btn-outline-dark me-1" href="{% url 'open_cart' %}">
+                    {% if product_count is 0 %}
+                        <span class="material-symbols-outlined">Cosul meu</span>
                     {% else %}
-                        <span class="material-symbols-outlined">Cosul meu</span> ({{ product_count }})</a>
+                        <span class="material-symbols-outlined">Cosul meu ({{ product_count }})</span>
                     {% endif %}
+                </a>
                 </div>
-
-                <BUTTON class="nav-item dropdown">
+                <div class="col-md-2 nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Welcome {{ user.username }}
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'password_change' %}">
-                            <span class="material-symbols-outlined"></span> Change password</a></li>
+                            <span class="material-symbols-outlined">Change password</span>
+                        </a></li>
                         <li><a class="dropdown-item" href="{% url 'logout' %}">
-                            <span class="material-symbols-outlined"></span> Logout</a></li>
-                        <li>
+                            <span class="material-symbols-outlined">Logout</span>
+                        </a></li>
                     </ul>
-                </BUTTON>
-
+                </div>
             {% else %}
-                <button class="btn btn-secondary" type="button">
-                    Welcome
-                </button>
-                <a href='{% url 'login' %}' class="btn btn-outline-secondary">Login</a>
-                <a href="{% url 'create-user' %}" class="btn btn-outline-secondary">Sign up</a>
+                <a href='{% url 'login' %}' class="btn btn-outline-light" style="color: #4faeb4;">
+                    <span class="material-symbols-outlined"></span>Login</a>
+                <a href="{% url 'create-user' %}" class="btn btn-outline-warning me-2" style="color: #4faeb4;">
+                    <span class="material-symbols-outlined"></span>Sign up</a>
             {% endif %}
     </div>
-
-
 </nav>
+<br>
+<nav class="navbar navbar-expand-sm" style="background-color: skyblue">
+    <ul class="menu">
+        <div class="d-flex align-items-start">
+            <ul class="navbar-nav flex-row me-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <li class="nav-item dropdown"><a href="{% url 'product_list' %}"><strong>Produse</strong></a>
+                    <ul class="submenu">
+                        {% for category in categories %}
+                            <li>
+                                <a href="{% url 'category_list' category.id %}">
+                                    {{ category.name }}
+                                </a>
+                                <ul class="submenu2">
+                                    {% for subcategory in category.subcategories %}
+                                        <li>
+                                            <a href="{% url 'category_list' subcategory.id %}">
+                                                <span class="nowrap">{{ subcategory.name }}</span>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
 
-<nav class="navbar navbar-expand-sm" style="background-color:skyblue ">
-    <div class="d-flex align-items-start">
-        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'product_list' %}">Produse</a>
-            </li>
+            </ul>
 
-            <li class="dropdown">
-                {% for category in categories %}
-                    <li class="nav-item dropend active" aria-current="page" href="{% url 'product_list' %}">
-                        <a class="nav-link dropdown-toggle"
-                           href="{% url 'category_list' category.id %}" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            <strong>{{ category.name }}</strong>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'reduced-products' %}">
+                            <strong>Reduceri</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'contact' %}">
+                            <strong>Contact</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <strong>Gestionare</strong>
                         </a>
                         <ul class="dropdown-menu">
-                            {% for subcategory in category.subcategories %}
-                                <li><a class="dropdown-item"
-                                       href="{% url 'category_list' subcategory.id %}"><strong>{{ subcategory.name }}</strong></a>
-                                </li>
-                            {% endfor %}
+                            <li>
+                                <a class="nav-link active" aria-current="page" href="{% url 'create-product' %}">
+                                    Adaugare Produs
+                                </a>
+                            </li>
+                            <li>
+                                <a class="nav-link active" aria-current="page" href="{% url 'add_category' %}">
+                                    Adaugare categorie
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Grafice
+                                </a>
+                            </li>
                         </ul>
                     </li>
-                    </li>
-                {% endfor %}
+
+                </ul>
+            </div>
         </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'product_list' %}"><strong>Reduceri</strong></a>
-                </li>
-                <li class="dropdown-menu">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'contact' %}"><strong>Contact</strong></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false"><strong> Gestionare</strong>
-                    </a>
-                    <ul class="dropdown-menu">
-
-                        <li>
-                            <a class="nav-link active" aria-current="page" href="{% url 'create-product' %}">
-                                Adaugare Produs
-                            </a>
-                        </li>
-                        <a class="nav-link active" aria-current="page" href="#">
-                            Adaugare categorie
-                        </a>
-                </li>
-                <li>
-                    <a class="dropdown-item" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false"> Grafice
-                    </a>
-                </li>
-
-
-        </div>
+    </ul>
 </nav>
+</body>
+</html>

@@ -4,7 +4,7 @@ from django import forms
 from django.core.validators import EmailValidator
 from django.forms import TextInput
 
-from store.models import Product
+from store.models import Product, Category
 
 
 class UserForm(UserCreationForm):
@@ -65,7 +65,7 @@ class ProductForm(forms.ModelForm):
         fields = '__all__'
 
         widgets = {
-            'name': TextInput(attrs={'placeholder': 'Please enter your first name', 'class': 'form-control'}),
+            'name': TextInput(attrs={'placeholder': 'Please enter product name', 'class': 'form-control'}),
         }
 
         def clean(self):
@@ -74,6 +74,9 @@ class ProductForm(forms.ModelForm):
             if check_emails:
                 msg = 'Aceasta adresa de mail exista deja in db'
                 self._errors['email'] = self.error_class([msg])
+
+            if 'image' in cleaned_data and not cleaned_data['image']:
+                self.add_error('image', 'Please upload an image for the product.')
 
             get_start_date = cleaned_data['start_date']
             get_end_date = cleaned_data['end_date']
@@ -87,5 +90,28 @@ class ProductUpdateForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = '__all__'
+
+
+class CheckoutForm(forms.Form):
+    shipping_address = forms.CharField(label='Adresa de livrare', widget=forms.Textarea(attrs={'rows': 3}))
+    billing_address = forms.CharField(label='Adresa de facturare', widget=forms.Textarea(attrs={'rows': 3}))
+    card_number = forms.CharField(label='Numar card', max_length=16)
+    card_expiry = forms.CharField(label='Data expirate card', max_length=5, help_text='MM/YY')
+    card_cvc = forms.CharField(label='Card CVC', max_length=3)
+
+
+# class AddCategoryForm(forms.Form):
+#     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+#     sub_category = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+#     is_sub = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
+#
+#     def __init__(self, *args, **kwargs):
+#         super(AddCategoryForm, self).__init__(*args, **kwargs)
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name', 'active', 'parent_category']
 
 

@@ -1,0 +1,43 @@
+/* Styles for the quantity input */
+.quantity-input {
+    display: flex;
+    align-items: center;
+}
+
+.quantity {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 0 5px;
+}
+
+.minus-button,
+.plus-button {
+    background-color: #ff6b6b;
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.minus-button:hover,
+.plus-button:hover {
+    background-color: #ff4c4c;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bg-container {
+    background-image: url('/static/product_images/logo.jpg'); /* Specificați calea către imaginea de fundal */
+    background-size: cover; /* Faceți ca imaginea să acopere întreaga suprafață */
+    background-position: center center; /* Așezați imaginea în centrul div-ului */
+    background-repeat: no-repeat; /* Nu repetați imaginea pe fundal */
+    height: 100vh; /* Înălțimea div-ului va fi egală cu înălțimea vizibilă a ferestrei (întreaga pagină) */
+}

@@ -27,7 +27,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'adrianristea.pythonanywhere.com',
     "127.0.0.1",
-                 ]
+]
 
 # Application definition
 
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django_filters',
     'bootstrapform',
     'cart',
-    'online_store'
+    'online_store',
 
 ]
 
