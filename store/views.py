@@ -48,7 +48,6 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            # Process the form data
             pass
             return redirect('success')
     else:
@@ -58,8 +57,8 @@ def contact(request):
 
 def contact_confirm_view(request):
     context = {
-        # Alte date din context
-        'messages': messages.get_messages(request),  # Adăugăm mesajele în context
+
+        'messages': messages.get_messages(request),
     }
     return render(request, 'success_mail_contact.html', context)
 
@@ -163,7 +162,6 @@ def remove_from_cart(request, product_id):
 @login_required
 def open_cart_view(request):
     open_cart, created = Cart.objects.get_or_create(user=request.user, status='open')
-    # Calculează valoarea totală a coșului
     total_value = 0
     for item in open_cart.cartitem_set.all():
         total_value += item.product.price * item.quantity
@@ -172,7 +170,6 @@ def open_cart_view(request):
         'cart': open_cart,
         'total_value': total_value,
     }
-
     return render(request, 'open_cart.html', context)
 
 def search_results(request):
@@ -192,7 +189,6 @@ def checkout_view(request):
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
         if form.is_valid():
-            # Logică de procesare a formei și redirecționare
             return redirect('home_page')
     else:
         form = CheckoutForm()
@@ -202,16 +198,10 @@ def checkout_view(request):
     }
     return render(request, 'checkout.html', context)
 
-
 def proceed_to_payment(request):
-    # Logică de procesare a plății aici
-
-    # Golește coșul de cumpărături după efectuarea plății
     cart = Cart.objects.get_or_create(user=request.user)[0]
     cart.cartitem_set.all().delete()
-
-    # Setează mesajul de confirmare
-    messages.success(request, "Plata a fost realizată cu succes! Coșul de cumpărături a fost golit.")
+    messages.success(request, "Plata a fost realizată cu succes!")
 
     return redirect(reverse('home_page'))
 

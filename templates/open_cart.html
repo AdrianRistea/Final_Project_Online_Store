@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}Open cart{% endblock %}
-<script src="{% static 'js/cart.js' %}"></script>
+
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/cart_style.css' %}">
     <div class="container">
@@ -17,7 +17,38 @@
                 {% endif %}
             </div>
         </div>
+<style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px; /* Spațiu în interiorul celulelor */
+        }
+        th {
+            background-color: #f2f2f2; /* Culoare de fundal pentru antete */
+        }
+        td {
+            text-align: center; /* Aliniere text în centru */
+        }
+        td + td {
+            border-left: 10px solid transparent; /* Adaugare spațiu între coloane */
+        }
+    </style>
+    <table cellspacing="10">
+        <tr>
+        <th>Imagine produs</th>
+        <th>Denumire produs</th>
+        <th>Cantitate</th>
+        <th>Pret produs</th>
+        <th>Pret total / produs</th>
+            <th>Stergere</th>
+        </tr>
+    </table>
+
         <div class="row">
+        <div class="col-md-12 mx-auto cart-content">
             {% for cart_item in cart.cartitem_set.all %}
                 <div class="card rounded-3 mb-4">
                     <div class="row align-items-center">
@@ -30,23 +61,18 @@
                                      alt="Image Not Available">
                             {% endif %}
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <p class="lead fw-normal mb-2">{{ cart_item.product.name }}</p>
                         </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-secondary btn-decrease" data-product-id="{{ cart_item.product.id }}">
-                                -
-                            </button>
+                        <div class="col-md-1">
                             <span class="quantity">{{ cart_item.quantity }}</span>
-                            <button class="btn btn-secondary btn-increase" data-product-id="{{ cart_item.product.id }}">
-                                +
-                            </button>
                         </div>
                         <div class="col-md-2">
                             <h5 class="mb-0">{{ cart_item.product.price }} lei</h5>
                         </div>
                         <div class="col-md-2">
-                            <h5 class="mb-0" id="rezultat_{{ cart_item.product.id }}"></h5>
+                            <h5 class="mb-0" id="rezultat_{{ cart_item.product.id }}">
+                            <div class="col-md-2" data-pret="{{ cart_item.product.price }}" data-cantitate="{{ cart_item.quantity }}"></div></h5>
                             <script>
                                 function inmultire(a, b) {
                                     return a * b;
@@ -71,7 +97,6 @@
         <div class="col-12">
             <div class="row">
                 <div class="col-md-3">
-{#                    <a href="{% url 'checkout' %}" class="btn btn-outline-success">Proceed to Checkout</a>#}
                 </div>
                 <br>
         <br>
@@ -102,32 +127,3 @@
     </div>
 {% endblock %}
 
-{#<script>#}
-{#    document.addEventListener('DOMContentLoaded', function () {#}
-{#        const decreaseButtons = document.querySelectorAll('.btn-decrease');#}
-{#        const increaseButtons = document.querySelectorAll('.btn-increase');#}
-{#        const quantityElements = document.querySelectorAll('.quantity');#}
-{##}
-{#        decreaseButtons.forEach(button => {#}
-{#            button.addEventListener('click', function () {#}
-{#                const productId = this.getAttribute('data-product-id');#}
-{#                const quantityElement = document.querySelector(`.quantity[data-product-id="${productId}"]`);#}
-{#                const currentQuantity = parseInt(quantityElement.textContent);#}
-{#                if (currentQuantity > 1) {#}
-{#                    const newQuantity = currentQuantity - 1;#}
-{#                    quantityElement.textContent = newQuantity;#}
-{#                }#}
-{#            });#}
-{#        });#}
-{##}
-{#        increaseButtons.forEach(button => {#}
-{#            button.addEventListener('click', function () {#}
-{#                const productId = this.getAttribute('data-product-id');#}
-{#                const quantityElement = document.querySelector(`.quantity[data-product-id="${productId}"]`);#}
-{#                const currentQuantity = parseInt(quantityElement.textContent);#}
-{#                const newQuantity = currentQuantity + 1;#}
-{#                quantityElement.textContent = newQuantity;#}
-{#            });#}
-{#        });#}
-{#    });#}
-{#</script>#}
