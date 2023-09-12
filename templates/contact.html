@@ -1,53 +1,35 @@
-{% extends "base.html" %}
-
-{% block title %}Contact Us{% endblock %}
-
-{% block css %}
-    {{ block.super }}
-    <style>
-        .form-group .help-block {
-            display: none;
-        }
-        .form-group.has-error .help-block {
-            display: block;
-        }
-        input[name='decoy'],
-        p.decoy {
-            display: none !important;
-        }
-    </style>
-{% endblock %}
-
-{% block pagetitle %}
-    <h1 class="mt-4">Contact Us</h1>
-{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap %}
+<br>
+{% block title %}Contact us{% endblock %}
 
 {% block content %}
+    <br>
     <div class="container mt-4">
-       {% if messages %}
-    <div class="alert alert-success">
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    </div>
-{% endif %}
-    <div class="container mt-4">
+        {% if messages %}
+            <div class="alert alert-success">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 offset-md-1">
                 <form action="." method="post" name="feedback" class="form-horizontal">
                     {% csrf_token %}
                     <div class="form-group {% if form.name.errors %}has-error{% endif %}">
                         <label for="id_name" class="control-label">Name</label>
                         <input type="text" name="name" class="form-control"
                                id="id_name"
-                               value="{% if form.data.name %}{{ form.data.name }}{% else %}{{ form.initial.name }}{% endif %}" />
+                               value="{% if form.data.name %}{{ form.data.name }}{% else %}{{ form.initial.name }}{% endif %}"/>
                         <p class="help-block">Name is a required field</p>
                     </div>
                     <div class="form-group {% if form.email.errors %}has-error{% endif %}">
                         <label for="id_email" class="control-label">E-mail Address</label>
                         <input class="form-control" type="text" name="email"
                                id="id_email"
-                               value="{% if form.data.email %}{{ form.data.email }}{% else %}{{ form.initial.email }}{% endif %}" />
+                               value="{% if form.data.email %}{{ form.data.email }}{% else %}{{ form.initial.email }}{% endif %}"/>
                         <p class="help-block">A valid e-mail address is required.</p>
                     </div>
                     <div class="form-group {% if form.subject.errors %}has-error{% endif %}">
@@ -57,26 +39,27 @@
                     </div>
                     <div class="form-group {% if form.message.errors %}has-error{% endif %}">
                         <label for="id_message" class="control-label">Message</label>
-                        <textarea name="message" class="form-control" id="id_message" rows="4">{% if form.data.message %}{{ form.data.message }}{% else %}{{ form.initial.message }}{% endif %}</textarea>
+                        <textarea name="message" class="form-control" id="id_message"
+                                  rows="4">{% if form.data.message %}{{ form.data.message }}{% else %}
+                            {{ form.initial.message }}{% endif %}</textarea>
                         <p class="help-block">Message is a required field.</p>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <input class="btn btn-primary pull-right" type="submit" value="Send " />
+                            <input class="btn btn-primary pull-right" type="submit" value="Send "/>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4 offset-md-1">
                 <h4>Contact Information</h4>
-
-                <ul><li>Ne puteti gasi la:</li>
+                <ul>
+                    <li>Ne puteți găsi la:</li>
                     <li>Email: contact@onlinestore.com</li>
                     <li>Phone: +40 727 227 222</li>
-                    <li>Adresa: B-du Dacia,Nr1, Mioveni,  Romania</li>
+                    <li>Adresa: B-du Dacia, Nr1, Mioveni, Romania</li>
                 </ul>
             </div>
         </div>
-    </div>
     </div>
 {% endblock %}

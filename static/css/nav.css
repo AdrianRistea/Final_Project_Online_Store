@@ -157,4 +157,16 @@ ul {
     padding-left: 0;
 }
 
+/*a:active {*/
+/*    color: red;*/
+/*}*/
 
+/*!* Modificarea culorii textului pentru butoane atunci când sunt apăsate *!*/
+/*button:active {*/
+/*    color: green;*/
+/*}*/
+
+/*!* Modificarea culorii textului pentru elemente atunci când sunt focalizate *!*/
+/*input:focus {*/
+/*    color: blue;*/
+/*}*/

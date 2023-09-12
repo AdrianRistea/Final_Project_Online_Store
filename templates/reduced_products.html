@@ -1,16 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load bootstrap %}
-
 {% block title %}Produse Reduse{% endblock %}
 
 {% block content %}
-
+<div class="container text-center">
     <h1>Reduceri</h1>
-
-    <div class="col-md-9">
-
-        <div class="row">
+    <div class="col-md-10 offset-md-1">
+            <div class="row">
             {% for product in reduced_products %}
                 <div class="col-md-3 mb-3 d-flex">
                     <div class="product-card card flex-fill">
@@ -24,16 +21,19 @@
                         </div>
                         <div class="product-details">
                             <h5 class="card-title">{{ product.name }}</h5>
-
                             {% if product.discount_price and product.discount_price_valid_until >= today %}
+                                <p>{{ today }}</p>
+                                <p>Discount Price: {{ product.discount_price }}</p>
                                 <p>Preț standard: {{ product.price }}</p>
-{#                                <p>Preț redus: {{ product.discount_price }}</p>#}
+
                             {% else %}
+                                <p>{{ today}}aici</p>
                                 <p>Preț standard: {{ product.price }}</p>
                                 <p>Discount Price: {{ product.discount_price }}</p>
                                 <p>Discount Price Valid Until: {{ product.discount_price_valid_until }}</p>
 
                             {% endif %}
+
 
                             <p class="card-text">{{ product.quantity }} produse disponibile</p>
                             <div class="d-flex justify-content-between">
@@ -68,10 +68,11 @@
                 </div>
             {% endfor %}
         </div>
-        {% if all_products|length == 0 %}
-            <h3 class="text-center mt-4">No results! Please try again.</h3>
-        {% endif %}
+        {% if reduced_products == 0 %}
+                <h3 class="text-center mt-4">Currently there are no discounted products!</h3>
+            {% endif %}
     </div>
     </div>
+{#    </div>#}
 
 {% endblock %}

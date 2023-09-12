@@ -8,7 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/cart_style.css' %}">
     <div class="container">
         <div class="row mx-auto">
-            <div class="col-md-12 mx-auto cart-content">
+            <div class="col-md-10 offset-md-1">
+            <div class="row">
                 {% if total_value is 0 %}
                     <h3 class="mb-10 fw-normal text-black">Shopping Cart Empty</h3>
                     <br><br><br>
@@ -23,7 +24,7 @@
             width: 100%;
         }
         th, td {
-            border: 1px solid #000;
+            border: 0px solid #000;
             padding: 8px; /* Spațiu în interiorul celulelor */
         }
         th {
@@ -36,7 +37,11 @@
             border-left: 10px solid transparent; /* Adaugare spațiu între coloane */
         }
     </style>
-    <table cellspacing="10">
+
+        <div class="col-md-10 offset-md-1">
+            <div class="row">
+            {% for cart_item in cart.cartitem_set.all %}
+                <table cellspacing="10">
         <tr>
         <th>Imagine produs</th>
         <th>Denumire produs</th>
@@ -46,10 +51,6 @@
             <th>Stergere</th>
         </tr>
     </table>
-
-        <div class="row">
-        <div class="col-md-12 mx-auto cart-content">
-            {% for cart_item in cart.cartitem_set.all %}
                 <div class="card rounded-3 mb-4">
                     <div class="row align-items-center">
                         <div class="col-md-2">
@@ -118,11 +119,6 @@
                 </div>
             </div>
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
         <br>
     </div>
 {% endblock %}

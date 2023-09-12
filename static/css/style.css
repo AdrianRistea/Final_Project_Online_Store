@@ -34,10 +34,10 @@
     height: 100%;
 }
 
-.bg-container {
-    background-image: url('/static/product_images/logo.jpg'); /* Specificați calea către imaginea de fundal */
-    background-size: cover; /* Faceți ca imaginea să acopere întreaga suprafață */
-    background-position: center center; /* Așezați imaginea în centrul div-ului */
-    background-repeat: no-repeat; /* Nu repetați imaginea pe fundal */
-    height: 100vh; /* Înălțimea div-ului va fi egală cu înălțimea vizibilă a ferestrei (întreaga pagină) */
-}
+/*.bg-container {*/
+/*    background-image: url('/static/product_images/logo.jpg'); !* Specificați calea către imaginea de fundal *!*/
+/*    background-size: cover; !* Faceți ca imaginea să acopere întreaga suprafață *!*/
+/*    background-position: center center; !* Așezați imaginea în centrul div-ului *!*/
+/*    background-repeat: no-repeat; !* Nu repetați imaginea pe fundal *!*/
+/*    height: 100vh; !* Înălțimea div-ului va fi egală cu înălțimea vizibilă a ferestrei (întreaga pagină) *!*/
+/*}*/

@@ -5,76 +5,80 @@
 {% block title %}Products - Details{% endblock %}
 
 {% block content %}
-<div class="container-fluid my-container">
-    <div class="row mt-5">
-        <div class="col-md-6 mx-auto">
-            <div class="card">
-            <div class="row">
-                    <div class="col-md-6">
-                {% if product.image %}
-                <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}" style="max-width: 640px;">
-                {% else %}
-                <img src="{% static 'product_images/no_image.jpeg' %}" class="img-fluid"
-                    alt="Image Not Available" style="max-width: 500px;">
-                {% endif %}
-                <div class="card-body">
-                    <h2 class="card-title text-center">{{ product.descriptions }}</h2>
-                    <br>
-                    <div class="d-flex justify-content-between mb-3">
-                        <h6 class="text-right">Category: {{ product.category }}</h6>
+    <div class="container-fluid my-container">
+        <div class="row mt-5">
+            <div class="col-md-8 mx-auto">
+                <div class="card">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <br>
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}"
+                                         style="max-width: 640px;">
+                                {% else %}
+                                    <img src="{% static 'product_images/no_image.jpeg' %}" class="img-fluid"
+                                         alt="Image Not Available" style="max-width: 500px;">
+                                {% endif %}
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h6 class="text-right">Category: {{ product.category }}</h6>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-10">
+                                <div class="card-body">
+                                    <h2 class="card-title text-center">{{ product.descriptions }}</h2>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mx-auto">
+                        <div class="card">
+                            <div class="container">
+
+                                <div class="row justify-content-center">
+                                    <h5 class="card-title">{{ product.price }} Lei</h5>
+                                    <h6 class="card-title">{{ product.quantity }} produse disponibile</h6>
+                                    <div class="d-flex flex-row mb-3">
+                                        <form action="{% url 'add_product_to_cart' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                                            <button type="submit" class="btn btn-outline-primary">
+                                                <a href="{% url 'add_product_to_cart' %}" class="btn btn-primary">
+                                                    <img class="logo" src="{% static 'icon/cart.svg' %}"
+                                                         alt="NTU Badge" width="20" height="20"/>
+                                                </a>
+                                            </button>
+                                        </form>
+                                        <button>
+                                            <a href="{% url 'delete-product' product.id %}" class="btn btn-primary">
+                                                <img class="logo" src="{% static 'icon/delete.svg' %} " alt="NTU Badge"
+                                                     width="30" height="30"/></a>
+                                        </button>
+                                        <button>
+                                            <a href="{% url 'modify-product' product.id %}" class="btn btn-primary">
+                                                <img class="logo" src="{% static 'icon/edit.svg' %} " alt="NTU Badge"
+                                                     width="30" height="30"/>
+                                            </a>
+                                        </button>
+                                        <button>
+                                            <a href="{% url 'product_list' %}" class="btn btn-primary">
+                                                <img class="logo" src="{% static 'icon/back.svg' %}" alt="back"
+                                                     width="30" height="30"/>
+                                            </a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <h5 class="card-title">{{ product.price }} Lei</h5>
-                    <h6 class="card-title">{{ product.quantity }} produse disponibile</h6>
-                    <div class="d-flex flex-row mb-3">
-                        <form action="{% url 'add_product_to_cart' %}" method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="product_id" value="{{ product.id }}">
-                            <button type="submit" class="btn btn-outline-primary">
-                                <a href="{% url 'add_product_to_cart' %}" class="btn btn-primary">
-                                    <img class="logo" src="{% static 'icon/cart.svg' %}"
-                                        alt="NTU Badge" width="20" height="20" />
-                                </a>
-                            </button>
-                        </form>
-                        <button>
-                            <a href="#" class="btn btn-primary">
-                                <img class="logo" src="{% static 'icon/delete.svg' %} " alt="NTU Badge"
-                                    width="30" height="30" /></a>
-                        </button>
-                        <button>
-                            <a href="{% url 'modify-product' product.id %}" class="btn btn-primary">
-                                <img class="logo" src="{% static 'icon/edit.svg' %} " alt="NTU Badge"
-                                    width="30" height="30" />
-                            </a>
-                        </button>
-                        <button>
-                            <a href="{% url 'product_list' %}" class="btn btn-primary">
-                                <img class="logo" src="{% static 'icon/back.svg' %}" alt="back"
-                                    width="30" height="30" />
-                            </a>
-                        </button>
-                    </div>
-                </div>
-                    </div>
+            </div>
         </div>
+        <br><br><br>
 
-            </div>
-        </div>
     </div>
-<br><br><br>
-
-    <div class="container text-center bg-container">
-        <div class="container text-center">
-            <div class="row row-cols-1">
-            </div>
-            <div class="row row-cols-12">
-                <img class="bg-img" src="/static/product_images/logo.jpg" alt="...">
-            </div>
-        </div>
-    </div>
-</div>
     <br><br><br>
 {% endblock %}
