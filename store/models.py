@@ -5,8 +5,6 @@ class Category(models.Model):
     name = models.CharField(max_length=250)
     active = models.BooleanField(default=True)
     parent_category = models.ForeignKey('Category', on_delete=models.CASCADE, blank=True, null=True)
-
-
     def subcategories(self):
         return Category.objects.filter(parent_category=self)
 
@@ -28,12 +26,12 @@ class Product(models.Model):
         return self.name
 
 
-class History(models.Model):
-    text = models.TextField(max_length=400)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.text
+# class History(models.Model):
+#     text = models.TextField(max_length=400)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#
+#     def __str__(self):
+#         return self.text
 
 
 class Favorite(models.Model):

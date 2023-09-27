@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load bootstrap %}
 <br>
 {% block title %}Contact us{% endblock %}
 
@@ -16,37 +15,67 @@
         {% endif %}
         <div class="row">
             <div class="col-md-6 offset-md-1">
-                <form action="." method="post" name="feedback" class="form-horizontal">
+                <form action="{% url 'send-email' %}" method="post" name="feedback" class="form-horizontal">
                     {% csrf_token %}
                     <div class="form-group {% if form.name.errors %}has-error{% endif %}">
                         <label for="id_name" class="control-label">Name</label>
                         <input type="text" name="name" class="form-control"
                                id="id_name"
-                               value="{% if form.data.name %}{{ form.data.name }}{% else %}{{ form.initial.name }}{% endif %}"/>
+                               value="{% if request.method == 'POST' %}{{ request.POST.name }}{% endif %}"/>
+                        {% if form.name.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.name.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         <p class="help-block">Name is a required field</p>
                     </div>
                     <div class="form-group {% if form.email.errors %}has-error{% endif %}">
                         <label for="id_email" class="control-label">E-mail Address</label>
                         <input class="form-control" type="text" name="email"
                                id="id_email"
-                               value="{% if form.data.email %}{{ form.data.email }}{% else %}{{ form.initial.email }}{% endif %}"/>
+                               value="{% if request.method == 'POST' %}{{ request.POST.email }}{% endif %}"/>
+                        {% if form.email.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.email.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                         <p class="help-block">A valid e-mail address is required.</p>
                     </div>
                     <div class="form-group {% if form.subject.errors %}has-error{% endif %}">
-                        <label for="id_subject" class="control-label">Subject</label>
-                        {{ form.subject }}
-                        <p class="help-block">Subject is a required field.</p>
-                    </div>
+    <label for="id_subject" class="control-label">Subject</label>
+    <input type="text" name="subject" class="form-control"
+           id="id_subject"
+           value="{% if request.method == 'POST' %}{{ request.POST.subject }}{% endif %}"/>
+    {% if form.subject.errors %}
+        <ul class="errorlist">
+            {% for error in form.subject.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <p class="help-block">Subject should contain at least 3 characters.</p>
+</div>
                     <div class="form-group {% if form.message.errors %}has-error{% endif %}">
                         <label for="id_message" class="control-label">Message</label>
-                        <textarea name="message" class="form-control" id="id_message"
-                                  rows="4">{% if form.data.message %}{{ form.data.message }}{% else %}
-                            {{ form.initial.message }}{% endif %}</textarea>
-                        <p class="help-block">Message is a required field.</p>
+                        <textarea name="message" class="form-control" id="id_message" rows="4">
+                            {% if request.method == 'POST' %}{{ request.POST.message }}{% endif %}
+                        </textarea>
+                        {% if form.message.errors %}
+                            <ul class="errorlist">
+                                {% for error in form.message.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        <p class="help-block">Message should contain at least 10 characters.</p>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
-                            <input class="btn btn-primary pull-right" type="submit" value="Send "/>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-outline-success">Send</button>
                         </div>
                     </div>
                 </form>

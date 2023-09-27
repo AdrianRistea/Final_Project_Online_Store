@@ -66,6 +66,7 @@ class ProductForm(forms.ModelForm):
 
         widgets = {
             'name': TextInput(attrs={'placeholder': 'Please enter product name', 'class': 'form-control'}),
+            'discount_price_valid_until': TextInput(attrs={'placeholder': 'Year  Month  Day ', 'class': 'form-control'}),
         }
 
         def clean(self):
@@ -100,18 +101,10 @@ class CheckoutForm(forms.Form):
     card_cvc = forms.CharField(label='Card CVC', max_length=3)
 
 
-# class AddCategoryForm(forms.Form):
-#     title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-#     sub_category = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-#     is_sub = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}))
-#
-#     def __init__(self, *args, **kwargs):
-#         super(AddCategoryForm, self).__init__(*args, **kwargs)
-
-
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'active', 'parent_category']
+
 
 

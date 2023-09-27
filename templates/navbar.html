@@ -9,8 +9,7 @@
 </head>
 <body>
 <div class="col-md-12">
-<nav class="navbar navbar-expand-lg" style="background-color: skyblue">
-{#<div>#}
+<nav class="navbar navbar-expand-lg navbar-fixed" style="background-color: skyblue">
     <div class="container text-center">
         <a class="navbar-brand" href="{% url 'home_page' %}">Online Store</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -32,31 +31,34 @@
                         <span class="material-symbols-outlined">Cosul meu ({{ product_count }})</span>
                     {% endif %}
                 </a>
-                </div>
-                <div class="col-md-2 nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Welcome {{ user.username }}
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'password_change' %}">
-                            <span class="material-symbols-outlined">Change password</span>
-                        </a></li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">
-                            <span class="material-symbols-outlined">Logout</span>
-                        </a></li>
-                    </ul>
-                </div>
-            {% else %}
-                <a href='{% url 'login' %}' class="btn btn-outline-light" style="color: #4faeb4;">
-                    <span class="material-symbols-outlined"></span>Login</a>
-                <a href="{% url 'create-user' %}" class="btn btn-outline-warning me-2" style="color: #4faeb4;">
-                    <span class="material-symbols-outlined"></span>Sign up</a>
-            {% endif %}
+            </div>
+            <div class="col-md-2 nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    Welcome {{ user.username }}
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'comenzile-mele' %}">
+                        <span class="material-symbols-outlined">Istoric cumparaturi</span>
+                    </a></li>
+                    <li><a class="dropdown-item" href="{% url 'password_change' %}">
+                        <span class="material-symbols-outlined">Change password</span>
+                    </a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">
+                        <span class="material-symbols-outlined">Logout</span>
+                    </a></li>
+                </ul>
+            </div>
+        {% else %}
+            <a href='{% url 'login' %}' class="btn btn-outline-light" style="color: #4faeb4;">
+                <span class="material-symbols-outlined"></span>Login</a>
+            <a href="{% url 'create-user' %}" class="btn btn-outline-warning me-2" style="color: #4faeb4;">
+                <span class="material-symbols-outlined"></span>Sign up</a>
+        {% endif %}
     </div>
 </nav>
 <br>
-<nav class="navbar navbar-expand-sm" style="background-color: skyblue">
+<nav class="navbar navbar-expand-lg navbar-fixed2" style="background-color: skyblue">
     <ul class="menu">
         <div class="d-flex align-items-start">
             <ul class="navbar-nav flex-row me-4" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -80,7 +82,6 @@
                         {% endfor %}
                     </ul>
                 </li>
-
             </ul>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -95,6 +96,7 @@
                             <strong>Contact</strong>
                         </a>
                     </li>
+                    {% if user.is_staff %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false">
@@ -118,7 +120,7 @@
                             </li>
                         </ul>
                     </li>
-
+                    {% endif %}
                 </ul>
             </div>
         </div>

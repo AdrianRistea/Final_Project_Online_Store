@@ -1,5 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import  PermissionRequiredMixin
+
 from .filters import ProductFilters
 from .models import Product, Category, Cart, CartItem
 from django.views.generic import TemplateView
@@ -8,16 +10,18 @@ from django.views.generic import CreateView, ListView, UpdateView, DetailView
 from django.urls import reverse_lazy, reverse
 from store.forms import UserForm, ContactForm, ProductForm, ProductUpdateForm, CheckoutForm, CategoryForm
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
 from datetime import date
 
-class ProductCreateView(CreateView):
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+import re
+class ProductCreateView(PermissionRequiredMixin,CreateView):
     template_name = 'product_create.html'
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('product_list')
     success_message = 'Felicitate! {f_name} {l_name} a fost adaugat cu success!'
-    # permission_required = 'student.add_student'
+    permission_required = 'student.add_student'
 
     def get_success_message(self, cleaned_data):
         return self.success_message.format(name=self.object.name)
@@ -37,8 +41,9 @@ class ProductListView(ListView):
 
         my_filters = ProductFilters(self.request.GET, queryset=Product.objects.filter(active=True))
         get_all_products = my_filters.qs
-        #
-        context['products'] = get_all_products
+
+        context['all_products'] = get_all_products
+
         context['form_filters'] = my_filters.form
 
         return context
@@ -60,7 +65,7 @@ def contact_confirm_view(request):
 
         'messages': messages.get_messages(request),
     }
-    return render(request, 'success_mail_contact.html', context)
+    return render(request, 'homepage.html', context)
 
 
 class HomeTemplateView(TemplateView):
@@ -83,7 +88,8 @@ class CategoryProductsView(DetailView):
         context = super().get_context_data(**kwargs)
         category = self.object
         context['subcategories'] = category.subcategories()
-        context['products'] = Product.objects.filter(category=category) | Product.objects.filter(category__in=category.subcategories())
+        context['products'] = Product.objects.filter(category=category) | Product.objects.filter(
+            category__in=category.subcategories())
         return context
 
 
@@ -103,16 +109,16 @@ def delete_product(request, product_id):
 
     return render(request, 'delete_product.html', {'product': product})
 
-def get(self, request, *args, **kwargs):
-    return HttpResponse()
 
 def product_details(request, product_id):
     product = Product.objects.get(id=product_id)
     return render(request, 'product_detail.html', {'product': product})
 
+
 def reduced_products(request):
-    reduced_products = Product.objects.filter(discount_price__isnull=False, discount_price_valid_until__gte=date.today())
-    return render(request, 'reduced_products.html', {'reduced_products': reduced_products})
+    today = date.today()
+    reduced_product = Product.objects.filter(discount_price__isnull=False, discount_price_valid_until__gte=today)
+    return render(request, 'reduced_products.html', {'reduced_products': reduced_product, 'today': today})
 
 
 @login_required
@@ -122,14 +128,13 @@ def add_product_to_cart(request):
         product_id = request.POST.get('product_id')
         quantity = int(request.POST.get('quantity', 1))
 
-        # Verifică dacă produsul există deja în coș și actualizează cantitatea
         cart_item, created = CartItem.objects.get_or_create(product_id=product_id, cart=open_cart)
         cart_item.quantity += quantity
         cart_item.save()
 
-        # Calculează valoarea totală a coșului
+
         total_value = 0
-        product_quantity_map = {}  # Mapare cantitate produs ID
+        product_quantity_map = {}
         for item in open_cart.cartitem_set.all():
             if item.product_id in product_quantity_map:
                 product_quantity_map[item.product_id] += item.quantity
@@ -137,14 +142,14 @@ def add_product_to_cart(request):
                 product_quantity_map[item.product_id] = item.quantity
 
         for product_id, quantity in product_quantity_map.items():
-            product = Product.objects.get(pk=product_id)  # Înlocuiește 'Product' cu modelul tău real
+            product = Product.objects.get(pk=product_id)
             total_value += product.price * quantity
 
-        # Actualizează valoarea totală în obiectul coșului
         open_cart.total_value = total_value
         open_cart.save()
 
     return redirect(request.META['HTTP_REFERER'])
+
 
 @login_required()
 def remove_from_cart(request, product_id):
@@ -158,19 +163,23 @@ def remove_from_cart(request, product_id):
     return redirect('open_cart')
 
 
-
 @login_required
 def open_cart_view(request):
     open_cart, created = Cart.objects.get_or_create(user=request.user, status='open')
     total_value = 0
+
     for item in open_cart.cartitem_set.all():
-        total_value += item.product.price * item.quantity
+        if item.product.discount_price:
+            total_value += item.product.discount_price * item.quantity
+        else:
+            total_value += item.product.price * item.quantity
 
     context = {
         'cart': open_cart,
         'total_value': total_value,
     }
     return render(request, 'open_cart.html', context)
+
 
 def search_results(request):
     query = request.GET.get('query')
@@ -185,6 +194,7 @@ def search_results(request):
     }
     return render(request, 'search_results.html', context)
 
+
 def checkout_view(request):
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
@@ -198,12 +208,14 @@ def checkout_view(request):
     }
     return render(request, 'checkout.html', context)
 
-def proceed_to_payment(request):
-    cart = Cart.objects.get_or_create(user=request.user)[0]
-    cart.cartitem_set.all().delete()
-    messages.success(request, "Plata a fost realizată cu succes!")
 
-    return redirect(reverse('home_page'))
+def proceed_to_payment(request):
+    cart = Cart.objects.get_or_create(user=request.user, status='open')[0]
+    cart.cartitem_set.all().delete()
+    cart.status = 'gol'
+    cart.save()
+    messages.success(request, "Plata a fost realizată cu succes!")
+    return redirect(reverse('ms'))
 
 
 class CategoryCreateView(CreateView):
@@ -216,5 +228,64 @@ class CategoryCreateView(CreateView):
     def get_success_message(self, cleaned_data):
         return self.success_message.format(name=self.object.name)
 
+class SuccesPaymentView(TemplateView):
+    template_name = 'succes_payment.html'
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        if user.is_authenticated:
+            try:
+                cart = Cart.objects.get(user=user, status='open')
+                if cart.cartitem_set.exists():
+                    cart.cartitem_set.all().delete()
+            except Cart.DoesNotExist:
+                pass
+        return super().get(request, *args, **kwargs)
+
+class SuccesMailView(TemplateView):
+    template_name = 'success_mail_contact.html'
+
+@login_required
+def send_email(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+
+        email_pattern = r'^[\w\.-]+@[\w\.-]+$'
+        if not re.match(email_pattern, email):
+            messages.error(request, 'Invalid email address format.')
+            return render(request, 'contact.html')
+
+        # Verificați dacă adresa de e-mail este validă folosind funcția validate_email
+        try:
+            validate_email(email)
+        except ValidationError:
+            messages.error(request, 'Invalid email address format.')
+            return render(request, 'contact.html')
+
+        if len(subject) < 3:
+            messages.error(request, 'Subject should contain at least 3 characters.')
+            return render(request, 'contact.html')
+
+        if len(message) < 10:
+            messages.error(request, 'Message should contain at least 10 characters.')
+            return render(request, 'contact.html')
+
+        if name and email and subject and message:
+            print(f"New email from: {name}, email: {email}, subject: {subject}, message: {message}")
+            messages.success(request, 'Your message was sent successfully.')
+
+            return redirect('contact')
+        else:
+            messages.error(request, 'Please fill in all required fields.')
+
+        return render(request, 'contact.html')
+
+
+
+class IstoricCumparaturiView(TemplateView):
+    template_name = 'comenzi_istoric.html'
 
 
