@@ -1,4 +1,4 @@
-/* Styles for the quantity input */
+
 .quantity-input {
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@
 }
 
 .admin-buttons {
-    margin-top: 10px; /* Adăugați orice valoare de margin dorită pentru spațiul dintre butoane */
+    margin-top: 10px;
 }
 
 .navbar-right {

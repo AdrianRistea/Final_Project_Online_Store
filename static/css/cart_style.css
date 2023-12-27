@@ -30,7 +30,7 @@
     background-color: #0056b3;
 }
 
-/* Adaugă o animație pentru butoanele de cantitate */
+
 .quantity-input button {
     transition: transform 0.2s ease-in-out;
 }
@@ -47,17 +47,17 @@ table {
 
 th, td {
     border: 0px solid #000;
-    padding: 8px; /* Spațiu în interiorul celulelor */
+    padding: 8px;
 }
 
 th {
-    background-color: #f2f2f2; /* Culoare de fundal pentru antete */
+    background-color: #f2f2f2;
 }
 
 td {
-    text-align: center; /* Aliniere text în centru */
+    text-align: center;
 }
 
 td + td {
-    border-left: 10px solid transparent; /* Adaugare spațiu între coloane */
+    border-left: 10px solid transparent;
 }
