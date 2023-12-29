@@ -66,7 +66,8 @@ class ProductForm(forms.ModelForm):
 
         widgets = {
             'name': TextInput(attrs={'placeholder': 'Please enter product name', 'class': 'form-control'}),
-            'discount_price_valid_until': TextInput(attrs={'placeholder': 'Year  Month  Day ', 'class': 'form-control'}),
+            'discount_price_valid_until': TextInput(
+                attrs={'placeholder': 'Year  Month  Day ', 'class': 'form-control'}),
         }
 
         def clean(self):
@@ -87,6 +88,7 @@ class ProductForm(forms.ModelForm):
 
             return cleaned_data
 
+
 class ProductUpdateForm(forms.ModelForm):
     class Meta:
         model = Product
@@ -96,15 +98,12 @@ class ProductUpdateForm(forms.ModelForm):
 class CheckoutForm(forms.Form):
     shipping_address = forms.CharField(label='Adresa de livrare', widget=forms.Textarea(attrs={'rows': 3}))
     billing_address = forms.CharField(label='Adresa de facturare', widget=forms.Textarea(attrs={'rows': 3}))
-    card_number = forms.CharField(label='Numar card', max_length=16)
-    card_expiry = forms.CharField(label='Data expirate card', max_length=5, help_text='MM/YY')
-    card_cvc = forms.CharField(label='Card CVC', max_length=3)
+    # card_number = forms.CharField(label='Numar card', max_length=16)
+    # card_expiry = forms.CharField(label='Data expirate card', max_length=5, help_text='MM/YY')
+    # card_cvc = forms.CharField(label='Card CVC', max_length=3)
 
 
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'active', 'parent_category']
-
-
-
