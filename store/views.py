@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import  PermissionRequiredMixin
 
 from .filters import ProductFilters
 from .models import Product, Category, Cart, CartItem
@@ -15,7 +14,9 @@ from datetime import date
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 import re
-class ProductCreateView(PermissionRequiredMixin,CreateView):
+
+
+class ProductCreateView(CreateView):
     template_name = 'product_create.html'
     model = Product
     form_class = ProductForm
@@ -132,7 +133,6 @@ def add_product_to_cart(request):
         cart_item.quantity += quantity
         cart_item.save()
 
-
         total_value = 0
         product_quantity_map = {}
         for item in open_cart.cartitem_set.all():
@@ -186,7 +186,7 @@ def search_results(request):
     results = []
 
     if query:
-        results = Product.objects.filter(name__icontains=query)  # Schimbă asta cu filtrul tău
+        results = Product.objects.filter(name__icontains=query)
 
     context = {
         'query': query,
@@ -228,6 +228,7 @@ class CategoryCreateView(CreateView):
     def get_success_message(self, cleaned_data):
         return self.success_message.format(name=self.object.name)
 
+
 class SuccesPaymentView(TemplateView):
     template_name = 'succes_payment.html'
 
@@ -242,8 +243,10 @@ class SuccesPaymentView(TemplateView):
                 pass
         return super().get(request, *args, **kwargs)
 
+
 class SuccesMailView(TemplateView):
     template_name = 'success_mail_contact.html'
+
 
 @login_required
 def send_email(request):
@@ -258,7 +261,6 @@ def send_email(request):
             messages.error(request, 'Invalid email address format.')
             return render(request, 'contact.html')
 
-        # Verificați dacă adresa de e-mail este validă folosind funcția validate_email
         try:
             validate_email(email)
         except ValidationError:
@@ -284,8 +286,5 @@ def send_email(request):
         return render(request, 'contact.html')
 
 
-
 class IstoricCumparaturiView(TemplateView):
     template_name = 'comenzi_istoric.html'
-
-

@@ -103,17 +103,18 @@
                     {% if total_value == 0 %}
                         <div class="row">
                             <div class="col-md-10 offset-md-1">
-                                <a href="{% url 'product_list' %}" class="btn btn-outline-success">Inapoi la cumparaturi</a>
+                                <a href="{% url 'product_list' %}" class="btn btn-outline-success">Inapoi la
+                                    cumparaturi</a>
                             </div>
                             {% else %}
                             <div class="row">
-                            <div class="col-md-4">
-                                <a href="{% url 'checkout' %}" class="btn btn-outline-success">Confrirma plata</a>
-                            </div>
-                            <div class="col-md-3"></div>
-                            <div class="col-md-4">
-                                <a href="{% url 'product_list' %}" class="btn btn-outline-success">Continua
-                                    cumparaturile</a>
+                                <div class="col-md-4">
+                                    <a href="{% url 'checkout' %}" class="btn btn-outline-success">Confrirma plata</a>
+                                </div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-4">
+                                    <a href="{% url 'product_list' %}" class="btn btn-outline-success">Continua
+                                        cumparaturile</a>
                                 </div>
                             </div>
                         </div>
