@@ -48,7 +48,7 @@
                                     <p> {{ product.price }} lei</p>
                                 {% endif %}
                                 <p class="card-text">{{ product.quantity }} produse disponibile</p>
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-center mx-auto">
                                     <form action="{% url 'add_product_to_cart' %}" method="post">
                                         {% csrf_token %}
                                         <input type="hidden" name="product_id" value="{{ product.id }}">
