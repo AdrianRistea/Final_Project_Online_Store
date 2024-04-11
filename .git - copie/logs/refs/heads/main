@@ -1,0 +1,31 @@
+0000000000000000000000000000000000000000 9b67cefd01bc05b05e73f833b5487ef451c2a956 Adrian Ristea <ady_ristea90@yahoo.com> 1689615214 +0300	commit (initial): create project
+9b67cefd01bc05b05e73f833b5487ef451c2a956 bba028e4ec8a6a31516769d1a7e98a306f3af74b Adrian Ristea <ady_ristea90@yahoo.com> 1691422807 +0300	commit: create project
+bba028e4ec8a6a31516769d1a7e98a306f3af74b 5936936fc2ba7235b46173f25c0730c9d18d9ce4 Adrian Ristea <ady_ristea90@yahoo.com> 1691422831 +0300	commit: create project
+5936936fc2ba7235b46173f25c0730c9d18d9ce4 b081f0ac61956c6aec3d40af95eec113989fe4ff Adrian Ristea <ady_ristea90@yahoo.com> 1691427405 +0300	commit: add db, 2 templates
+b081f0ac61956c6aec3d40af95eec113989fe4ff 19894530ee0d3e313b702d028b6a45fc4390ece3 Adrian Ristea <ady_ristea90@yahoo.com> 1691427512 +0300	commit: add allowed host
+19894530ee0d3e313b702d028b6a45fc4390ece3 5d8a96c80c86ca5684ecf1427b43346c4edeb234 Adrian Ristea <ady_ristea90@yahoo.com> 1691519140 +0300	commit: add allowed host
+5d8a96c80c86ca5684ecf1427b43346c4edeb234 5e6a80295a6a1a47b27829899727f177acc4aeea Adrian Ristea <ady_ristea90@yahoo.com> 1691519156 +0300	commit: add allowed host
+5e6a80295a6a1a47b27829899727f177acc4aeea 406750ce9c5b3245e844630e44e88015da3710f1 Adrian Ristea <ady_ristea90@yahoo.com> 1694271284 +0300	commit: add allowed host
+406750ce9c5b3245e844630e44e88015da3710f1 776974ce4eefacacd2e23631710d0d176a774c7d Adrian Ristea <ady_ristea90@yahoo.com> 1694271353 +0300	commit: add allowed host
+776974ce4eefacacd2e23631710d0d176a774c7d ea3d49d3871e5232b643c7230411e5c8d43a99fb Adrian Ristea <ady_ristea90@yahoo.com> 1694275655 +0300	commit: add allowed host
+ea3d49d3871e5232b643c7230411e5c8d43a99fb ed178c5c7dba0ba83e70644367d6a24c2833ad78 Adrian Ristea <ady_ristea90@yahoo.com> 1694275679 +0300	commit: add allowed host
+ed178c5c7dba0ba83e70644367d6a24c2833ad78 30997528f927d0cf87b3f639320e1a1a1504c2a0 Adrian Ristea <ady_ristea90@yahoo.com> 1694421281 +0300	commit: add allowed host
+30997528f927d0cf87b3f639320e1a1a1504c2a0 879598adb939c533838e261d148f0ffe6c41ff26 Adrian Ristea <ady_ristea90@yahoo.com> 1694518765 +0300	commit: add allowed host
+879598adb939c533838e261d148f0ffe6c41ff26 466bfbf8057d61f3c7c65af253962ab53039e1c9 Adrian Ristea <ady_ristea90@yahoo.com> 1694519156 +0300	commit: add allowed host
+466bfbf8057d61f3c7c65af253962ab53039e1c9 3d7f66446dea2d775e24aa391ed4f9d10fbf48b6 Adrian Ristea <ady_ristea90@yahoo.com> 1695802681 +0300	commit: add allowed host
+3d7f66446dea2d775e24aa391ed4f9d10fbf48b6 c666b4008646f68dccc631a7828df30a9d5b829d Adrian Ristea <ady_ristea90@yahoo.com> 1704728715 +0200	commit: no message
+c666b4008646f68dccc631a7828df30a9d5b829d 06d5ee057cba8a2e3db68de6cbda2ee7a57fcb06 Adrian Ristea <ady_ristea90@yahoo.com> 1704728731 +0200	commit: no message
+06d5ee057cba8a2e3db68de6cbda2ee7a57fcb06 1ab2d1d2d277aedaee5b3761db881d10a38edcf7 Adrian Ristea <ady_ristea90@yahoo.com> 1704728928 +0200	pull --tags origin master: Merge made by the 'recursive' strategy.
+1ab2d1d2d277aedaee5b3761db881d10a38edcf7 82e55fd3196db9f3388420b02c49506d9f1dbb9b Adrian Ristea <ady_ristea90@yahoo.com> 1708615187 +0200	commit: no message
+82e55fd3196db9f3388420b02c49506d9f1dbb9b e74ce64e04286106a4747489b7b43da765c2866d Adrian Ristea <ady_ristea90@yahoo.com> 1712156575 +0300	commit: ok
+e74ce64e04286106a4747489b7b43da765c2866d e74ce64e04286106a4747489b7b43da765c2866d Adrian Ristea <ady_ristea90@yahoo.com> 1712330904 +0300	Branch: renamed refs/heads/master to refs/heads/main
+e74ce64e04286106a4747489b7b43da765c2866d e74ce64e04286106a4747489b7b43da765c2866d Adrian Ristea <ady_ristea90@yahoo.com> 1712331023 +0300	Branch: renamed refs/heads/main to refs/heads/main
+e74ce64e04286106a4747489b7b43da765c2866d e74ce64e04286106a4747489b7b43da765c2866d Adrian Ristea <ady_ristea90@yahoo.com> 1712331352 +0300	Branch: renamed refs/heads/main to refs/heads/main
+e74ce64e04286106a4747489b7b43da765c2866d 8912c789f1f838dfc1ba1e1a364548ea4b945496 Adrian Ristea <ady_ristea90@yahoo.com> 1712331372 +0300	commit: ok
+8912c789f1f838dfc1ba1e1a364548ea4b945496 8912c789f1f838dfc1ba1e1a364548ea4b945496 Adrian Ristea <ady_ristea90@yahoo.com> 1712331494 +0300	Branch: renamed refs/heads/main to refs/heads/main
+8912c789f1f838dfc1ba1e1a364548ea4b945496 49b5c9794c6aabda90d57f90f6f8300d091fb645 Adrian Ristea <ady_ristea90@yahoo.com> 1712331513 +0300	commit: ok
+49b5c9794c6aabda90d57f90f6f8300d091fb645 7eb9a4a1ff6e7e24c93cf12c4bcecaca00ac6b1a Adrian Ristea <ady_ristea90@yahoo.com> 1712826827 +0300	commit: no message
+7eb9a4a1ff6e7e24c93cf12c4bcecaca00ac6b1a 7eb9a4a1ff6e7e24c93cf12c4bcecaca00ac6b1a Adrian Ristea <ady_ristea90@yahoo.com> 1712827012 +0300	Branch: renamed refs/heads/main to refs/heads/main
+7eb9a4a1ff6e7e24c93cf12c4bcecaca00ac6b1a 455afe6d8ecc5feede997a5bab54079797cf27b2 Adrian Ristea <ady_ristea90@yahoo.com> 1712827188 +0300	commit: first commit
+455afe6d8ecc5feede997a5bab54079797cf27b2 455afe6d8ecc5feede997a5bab54079797cf27b2 Adrian Ristea <ady_ristea90@yahoo.com> 1712827188 +0300	Branch: renamed refs/heads/main to refs/heads/main
+455afe6d8ecc5feede997a5bab54079797cf27b2 3153d2fffac1d36c220ae5fdfda51850d9ece556 Adrian Ristea <ady_ristea90@yahoo.com> 1712828359 +0300	commit: commit
